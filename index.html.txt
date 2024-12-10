@@ -1,0 +1,63 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .messages {
+            margin-top: 50px;
+            list-style-type: none;
+            padding: 0;
+        }
+        .messages li {
+            background-color: #f1f1f1;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Message Board</h1>
+
+        <!-- Form to submit a new message -->
+        <form method="POST" action="/">
+            <input type="text" name="message" placeholder="Enter your message here" required>
+            <button type="submit">Submit Message</button>
+        </form>
+
+        <!-- Display messages -->
+        <h2>All Messages:</h2>
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message[1] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

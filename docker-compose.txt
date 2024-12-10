@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  app:
+    build: .  # This will build the image from the current directory (where the Dockerfile is located)
+    environment:
+      DB_HOST: db  # Name of the PostgreSQL service
+      DB_USERNAME: postgres
+      DB_PASSWORD: mypassword
+      DB_NAME: sampledb
+      DB_PORT: 5432
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db  # Ensure the Flask app starts after the DB container
+    networks:
+      - app-network
+
+  db:
+    image: postgres:latest  # Official PostgreSQL image
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: sampledb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist database data
+    networks:
+      - app-network
+
+# Volumes to persist the database data
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
